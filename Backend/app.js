@@ -7,7 +7,7 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-require('./db/index')
+// require('./db/index')
 app.post('/login', async(req,res)=>{
     try {
         console.log(req.body);
