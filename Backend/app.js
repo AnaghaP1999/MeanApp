@@ -13,7 +13,7 @@ app.post('/login', async(req,res)=>{
         console.log(req.body);
         var email = req.body.email;
         var password = req.body.password;
-        if(email == 'anaghatcr1999@gmail.com' && password == '123') {
+        if(email == 'admin@gmail.com' && password == '123') {
             let payload = {email:email, password:password};
             let token = jwt.sign(payload, 'secretkey');
             res.status(200).send({message:'Success', token:token});
