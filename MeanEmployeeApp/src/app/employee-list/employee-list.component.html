@@ -1,17 +1,24 @@
 <div class="form-container">
+  <button type="submit" class="btn btn-primary" routerLink="/addemployee">Add Employee</button>
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">Id</th>
+            <th scope="col"></th>
             <th scope="col">Name</th>
-            <th scope="col">Email</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Location</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>     
+          <tr *ngFor="let item of items">
+            <td>#</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.designation }}</td>  
+            <td>{{ item.location }}</td> 
+            <td>edit</td> 
+            <td>delete</td>     
           </tr>
           
         </tbody>

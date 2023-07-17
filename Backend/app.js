@@ -7,7 +7,38 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-// require('./db/index')
+
+function verifytoken(req, res, next) {
+    try {
+        if (!req.headers.authorization) throw 'Unauthorized';
+        let token = req.headers.authorization.split(' ')[1];
+        if(!token) throw 'Unauthorized';
+        let payload = jwt.verify(token, 'secretKey');
+        if(!payload) throw 'Unauthorized';
+        res.status(200),send(payload);
+        next()
+    } catch (error) {
+        res.status(401).send('Error');
+    }
+}
+require('dotenv').config();
+const mongoose = require('mongoose');
+mongoose.connect(process.env.mongodb_url)
+.then(()=>{
+    console.log('Connected to my local db');
+})
+.catch(()=>{
+    console.log('Error !!! Connection not');
+})
+
+const employeeSchema = new mongoose.Schema({  
+    name: String,
+    designation: String,
+    location: String,
+    salary: Number
+  });
+  const Employee = mongoose.model('employee', employeeSchema, 'employees');
+
 app.post('/login', async(req,res)=>{
     try {
         console.log(req.body);
@@ -24,11 +55,40 @@ app.post('/login', async(req,res)=>{
         res.status(404).send({message:'Not found'});
     }
 });
-// const keralaRouter = require('./routes/kerala')
-// app.use('/kerala', keralaRouter);
 
-// const studentRouter = require('./routes/student');
-// app.use('/stuent', studentRouter);
+
+app.get('/employeelist', (req, res) => {
+    Employee.find()
+      .then((employees) => {
+        res.json(employees);
+      })
+      .catch((error) => {
+        console.error('Error retrieving employees:', error);
+        res.status(500).send('Error retrieving employees');
+      });
+  });
+
+app.post('/addEmployee', (req, res) => {
+    const { name, location, designation, salary } = req.body;
+  
+    const employee = new Employee({
+      name,
+      location,
+      designation,
+      salary
+    });
+
+    employee.save()
+      .then((savedEmployee) => {
+        res.json(savedEmployee);
+      })
+      .catch((error) => {
+        console.error('Error saving employee:', error);
+        res.status(500).send('Error saving employee');
+      });
+  });
+
+
 
 const PORT = 3000; // port number
 app.listen(PORT,()=>{
