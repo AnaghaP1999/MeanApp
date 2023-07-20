@@ -47,7 +47,11 @@ app.post('/login', async(req,res)=>{
         if(email == 'admin@gmail.com' && password == '123') {
             let payload = {email:email, password:password};
             let token = jwt.sign(payload, 'secretkey');
-            res.status(200).send({message:'Success', token:token});
+            res.status(200).send({message:'Success', token:token, role:'admin'});
+        } else if(email == 'user@gmail.com' && password == '123') {
+          let payload = {email:email, password:password};
+            let token = jwt.sign(payload, 'secretkey');
+            res.status(200).send({message:'Success', token:token, role:'user'});
         } else {
             res.status(400).send({message:'Unauthorized'});
         }

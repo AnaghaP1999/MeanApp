@@ -19,11 +19,18 @@ export class LoginComponent implements OnInit{
 
   constructor(private authserve:AuthserviceService, private router:Router) {}
   display() {
-    console.log('users', this.Users);
+
     this.authserve.login(this.Users).subscribe(res=>{
-      console.log(res);
+   
       localStorage.setItem('token', res.token);
-      this.router.navigate(['/employeelist']);
+      localStorage.setItem('role', res.role)
+      if(res.role == 'admin') {
+        this.router.navigate(['/employeelist']);
+      }
+      if(res.role == 'user') {
+        this.router.navigate(['/employees']);
+      }
+      
     })
   }
 }

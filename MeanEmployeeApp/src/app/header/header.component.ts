@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthserviceService } from '../authservice.service';
+
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,10 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit{
   ngOnInit(): void {
   }
-  constructor(private router:Router) {}
+  constructor(public authserve:AuthserviceService) {}
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate([''])
+  logout(): void {
+    this.authserve.logout();
   }
+
 }

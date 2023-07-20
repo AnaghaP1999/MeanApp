@@ -12,6 +12,7 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { EmployeeserviceService } from './employeeservice.service';
 import { TokeninterceptorService } from './tokeninterceptor.service';
+import { EmployeesComponent } from './employees/employees.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TokeninterceptorService } from './tokeninterceptor.service';
     HeaderComponent,
     LoginComponent,
     EmployeeListComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    EmployeesComponent
   ],
   imports: [
     BrowserModule,
