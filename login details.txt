@@ -1,0 +1,11 @@
+ADMIN
+
+Username = admin@gmail.com
+password = 123
+
+
+
+User
+
+Username = user@gmail.com
+password = 123
